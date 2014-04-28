@@ -1,0 +1,27 @@
+#!/usr/bin/perl
+#
+#
+#
+use warnings;
+use strict;
+
+my $file = shift;
+die "Usage: $0 FILE\n" if ! $file;
+
+open (my $file_fh, "$file") || die "Can't read '$file': $!\n";
+binmode($file_fh);
+my $bytes;
+my $byte;
+while (read($file_fh,$byte,1)) {
+
+    $bytes++;
+    my $binary = unpack("B8", $byte);
+    $binary =~ s/0/ /g;
+    $binary =~ s/1/#/g;
+    print "$binary\n";
+
+}
+close $file_fh;
+
+print "$bytes bytes\n";
+
