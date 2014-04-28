@@ -14,6 +14,7 @@
 // Font Size    : 8x8
 // Memory usage : 768 bytes
 // # characters : 96
+// Raw data from: http://homepage.ntlworld.com/wholehog/stuart/fonts/
 //
 const fontdatatype ZXSpecFont [768] PROGMEM={
   0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, // space
