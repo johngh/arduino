@@ -1,0 +1,40 @@
+#!/usr/bin/perl
+#
+#
+#
+use warnings;
+use strict;
+
+my $file = shift;
+die "Usage: $0 FILE\n" if ! $file;
+
+sub double ($) {
+
+    my $num = shift;
+    my @bits = split(//, $num);
+
+    my $double = "";
+    for my $i ( 0 .. $#bits ) {
+        $double .= "$bits[$i]$bits[$i]";
+    }
+    return $double;
+
+}
+
+open (my $file_fh, "$file") || die "Can't read '$file': $!\n";
+binmode($file_fh);
+my $byte;
+while (read($file_fh,$byte,1)) {
+
+    my $binary = unpack("B8", $byte);
+    my $binaryx2 = double($binary);
+
+    my $hex = unpack("H4", pack("B16", substr("0" x 16 . $binaryx2, -16)));
+    my @hex = ( $hex =~ m/../g );
+
+    my $out = join("", map chr hex, @hex);
+    print "$out$out";
+
+}
+close $file_fh;
+
