@@ -1,0 +1,23 @@
+#!/usr/bin/perl
+#
+#
+#
+use warnings;
+use strict;
+
+my $file = shift;
+die "Usage: $0 FILE\n" if ! $file;
+
+open (my $file_fh, "$file") || die "Can't read '$file': $!\n";
+while (defined (my $line = <$file_fh>)) {
+
+    #
+    if ( $line =~ /^\s+(0x..), (0x..), (0x..), (0x..),\s*$/ ) {
+       print "  $2, $1, $4, $3\n";
+    } else {
+       print "$line";
+    }
+
+}
+close $file_fh;
+
